@@ -3,18 +3,16 @@ package moppydesk;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
+
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
+
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MetaEventListener;
 import javax.sound.midi.MetaMessage;
-import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Receiver;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 
@@ -45,34 +43,34 @@ public class MoppySequencer implements MetaEventListener{
 
         sequencer.stop();
         Sequence sequence = MidiSystem.getSequence(new File(filePath));
-        
+
         sequencer.setSequence(sequence);
         System.out.println("Loaded sequence with "+(sequence.getTracks().length-1)+" MIDI channels.");
     }
-    
+
     public void startSequencer(){
         sequencer.start();
     }
-    
+
     public void stopSequencer(){
         if (sequencer.isOpen()){
                 sequencer.stop();
             }
         mb.resetDrives();
     }
-    
+
     public void setTempo(float newTempo){
         sequencer.setTempoInBPM(newTempo);
     }
-    
+
     public void addListener(MoppyStatusConsumer newListener){
         listeners.add(newListener);
     }
-    
+
     public void removeListener(MoppyStatusConsumer oldListener){
         listeners.remove(oldListener);
     }
-    
+
     public void closeSequencer(){
         stopSequencer();
         sequencer.close();
@@ -87,14 +85,14 @@ public class MoppySequencer implements MetaEventListener{
             uSecondsPerQN |= meta.getData()[1] & 0xFF;
             uSecondsPerQN <<= 8;
             uSecondsPerQN |= meta.getData()[2] & 0xFF;
-            
+
             int newTempo = 60000000/uSecondsPerQN;
-            
+
             sequencer.setTempoInBPM(newTempo);
             for (MoppyStatusConsumer c : listeners){
                 c.tempoChanged(newTempo);
             }
-            
+
             System.out.println("Tempo changed to: " + newTempo);
         }
     }

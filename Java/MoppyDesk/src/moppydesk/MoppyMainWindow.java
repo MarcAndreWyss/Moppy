@@ -1,13 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * MoppyMainWindow.java
- *
- * Created on Oct 8, 2011, 8:34:57 PM
- */
 package moppydesk;
 
 import gnu.io.CommPortIdentifier;
@@ -44,9 +34,6 @@ public class MoppyMainWindow extends javax.swing.JFrame implements MoppyStatusCo
 
         statusLabel.setText("Ready");
 
-//        initializeSequencer((String) comSelectionMenu.getSelectedItem());
-//        
-//        
     }
 
     private void updateComSelectionMenu() {
@@ -54,7 +41,10 @@ public class MoppyMainWindow extends javax.swing.JFrame implements MoppyStatusCo
         comSelectionMenu.removeAllItems();
         Enumeration<CommPortIdentifier> e = CommPortIdentifier.getPortIdentifiers();
         while (e.hasMoreElements()) {
-            comSelectionMenu.addItem(e.nextElement().getName());
+            CommPortIdentifier comPortId = e.nextElement();
+            if(comPortId.getPortType() == CommPortIdentifier.PORT_SERIAL){
+                comSelectionMenu.addItem(comPortId.getName());
+            }
         }
         comSelectionMenu.setSelectedItem(prefs.get(PREF_COM_PORT, ""));
         comboBoxReady = true;
