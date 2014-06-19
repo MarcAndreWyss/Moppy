@@ -12,8 +12,7 @@
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
 </pre>
 
-Original source code by Sammy1Am
-Forked by Marc André Wyss
+Original source code by Sammy1Am, forked by Marc André Wyss
 
 Moppy is a **M**usical Fl **oppy** controller program built for the [Arduino Uno](http://arduino.cc/en/Main/ArduinoBoardUno), but it does even work with an old [Arduino Duemilanove](http://arduino.cc/en/Main/ArduinoBoardDuemilanove) very well.
 
