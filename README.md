@@ -21,7 +21,7 @@ New version
 -----------
 Check out the new MoppyAdvanced by Sammy1Am at:
 https://github.com/SammyIAm/Moppy/tree/moppy-advanced
-Lots of new features, and a few stability fixes.
+His version has a lots of new features, and a few stability fixes.
 
 
 Installation
